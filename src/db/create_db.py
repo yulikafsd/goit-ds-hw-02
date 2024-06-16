@@ -3,8 +3,8 @@ from connect import create_connection
 from create_table import read_sql_from_file, create_tables
 
 
+# Create the database file and set up tables using the SQL script
 def create_db(db_path, sql_path):
-    """Create the database file and set up tables using the SQL script."""
     try:
         with create_connection(db_path) as conn:
             print(f"Database created at {db_path}")
@@ -17,5 +17,5 @@ def create_db(db_path, sql_path):
 
 if __name__ == "__main__":
     db_path = "tasks.db"  # Path to SQLite database
-    sql_path = "src/db/queries.sql"  # Path to SQL file with queries
+    sql_path = "src/db/db_init_queries.sql"  # Path to SQL file with queries
     create_db(db_path, sql_path)

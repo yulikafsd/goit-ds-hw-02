@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS users (
     id integer PRIMARY KEY AUTOINCREMENT,
     fullname VARCHAR(100),
-    email VARCHAR(100) UNIQUE NOT NULL -- повинна бути унікальною
+    email VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS status (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(50) UNIQUE NOT NULL -- [('new',), ('in progress',), ('completed',)] 
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tasks (

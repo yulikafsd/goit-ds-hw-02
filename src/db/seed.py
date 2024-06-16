@@ -1,6 +1,5 @@
-from datetime import datetime
 import faker
-from random import randint, choice
+from random import randint
 import sqlite3
 
 NUMBER_USERS = 5
@@ -12,14 +11,14 @@ def generate_fake_data(number_users, number_tasks) -> tuple():
     fake_users = []
     fake_tasks = []
 
-    """Create fake_data variable"""
+    # Create fake_data variable
     fake_data = faker.Faker()
 
-    """Generate fake users"""
+    # Generate fake users
     for _ in range(number_users):
         fake_users.append([fake_data.name(), fake_data.ascii_email()])
 
-    """Generate fake tasks"""
+    # Generate fake tasks
     for _ in range(number_tasks):
         fake_tasks.append([fake_data.catch_phrase(), fake_data.text(max_nb_chars=150)])
 
@@ -27,13 +26,13 @@ def generate_fake_data(number_users, number_tasks) -> tuple():
 
 
 def prepare_data(fake_users, fake_tasks) -> tuple():
-    """Prepare statuses for seeding"""
+    # Prepare statuses for seeding
     for_statuses = []
 
     for status in STATUSES:
         for_statuses.append(status)
 
-    """Prepare users for seeding"""
+    # Prepare users for seeding
     for_users = []
 
     for user in fake_users:
@@ -45,7 +44,7 @@ def prepare_data(fake_users, fake_tasks) -> tuple():
             )
         )
 
-    """Prepare tasks for seeding"""
+    # Prepare tasks for seeding
     for_tasks = []
 
     for task in fake_tasks:
@@ -58,26 +57,26 @@ def prepare_data(fake_users, fake_tasks) -> tuple():
 
 
 def insert_data_to_db(statuses, users, tasks) -> None:
-    """Connect to DB and get cursor"""
+    # Connect to DB and get cursor
     with sqlite3.connect("tasks.db") as con:
         cur = con.cursor()
 
-        """Fill the statuses"""
+        # Fill the statuses
         sql_to_statuses = """INSERT INTO status(name)
                             VALUES (?)"""
         cur.executemany(sql_to_statuses, statuses)
 
-        """Fill the users"""
+        # Fill the users
         sql_to_users = """INSERT INTO users(fullname, email)
                             VALUES (?, ?)"""
         cur.executemany(sql_to_users, users)
 
-        """Fill the tasks"""
+        # Fill the tasks
         sql_to_tasks = """INSERT INTO tasks(title, description, status_id, user_id)
                             VALUES (?, ?, ?, ?)"""
         cur.executemany(sql_to_tasks, tasks)
 
-        """Commit the cnahges"""
+        # Commit the changes
         con.commit()
 
 

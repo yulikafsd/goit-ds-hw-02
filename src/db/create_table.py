@@ -1,6 +1,7 @@
 import sqlite3
 
 
+# Read the SQL script from file
 def read_sql_from_file(filepath):
     """Reads SQL script from a file."""
     with open(filepath, "r") as file:
@@ -8,6 +9,7 @@ def read_sql_from_file(filepath):
     return sql_script
 
 
+# Create tables using the SQL script
 def create_tables(conn, sql_script):
     """Create tables from the SQL script.
     :param conn: Connection object
